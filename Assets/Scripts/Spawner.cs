@@ -42,17 +42,14 @@ public class Spawner : MonoBehaviour
     {
         while (true)
         {
-            if (_timeDuration > 0)
-            {
-                GameObject cube = Instantiate(Cube, transform);
-                CubeSettings cubeSet = cube.GetComponent<CubeSettings>();
-                if (cubeSet == null) cubeSet.AddComponent<CubeSettings>();
-                cubeSet._transform = cube.transform;
-                cubeSet._speed = _speed;
-                cubeSet._target = target;
-                StartCoroutine(cubeSet._MoveCubeCorutine);
-                yield return new WaitForSeconds(_timeDuration);
-            }
+            GameObject cube = Instantiate(Cube, transform);
+            CubeSettings cubeSet = cube.GetComponent<CubeSettings>();
+            if (cubeSet == null) cubeSet.AddComponent<CubeSettings>();
+            cubeSet._transform = cube.transform;
+            cubeSet._speed = _speed;
+            cubeSet._target = target;
+            StartCoroutine(cubeSet._MoveCubeCorutine);
+            yield return new WaitForSeconds(Mathf.Max(_timeDuration, 0.1f));
         }
     }
 }
